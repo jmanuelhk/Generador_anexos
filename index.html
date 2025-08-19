@@ -70,15 +70,21 @@
       <!-- Paso 1: Subir CSV -->
       <div class="card-step active">
         <div class="step-title">1. Sube tu archivo de datos (.CSV)</div>
-        <div class="step-desc">Descarga tu archivo Excel como CSV y súbelo aquí. <br>
-          <span class="text-dark small">El archivo debe tener los encabezados requeridos. Si tienes dudas, revisa el ejemplo o consulta con soporte.</span>
+        <div class="step-desc">
+          Descarga tu archivo Excel como CSV y súbelo aquí. <br>
+          <span class="text-bg-danger small">El archivo debe tener los encabezados requeridos. <b>IMPORTANTE:</b> Guarda tu archivo como <b>CSV UTF-8</b> para que los acentos y caracteres especiales se vean correctamente en el PDF. Si tienes dudas, revisa el ejemplo o consulta con soporte.</span>
         </div>
         <input id="csvFile" type="file" accept=".csv" class="form-control mb-2" />
         <div class="form-text">
           *Es necesario cargar el archivo CSV.
           <a href="https://www.youtube.com/watch?v=QJp4pQh6K7g" target="_blank" rel="noopener" class="text-decoration-underline">
-            ¿Cómo obtenerlo?
+        ¿Cómo obtenerlo?
           </a>
+        </div>
+        <div class="mt-3">
+          <div class="fw-semibold mb-1" style="color:var(--guinda);">Ejemplos de archivos CSV, solo baja y modifica:</div>
+          <a href="DB_CAMINOS_Pagados_base.csv" class="btn btn-outline-primary btn-sm me-2" download>Ejemplo_DB_CAMINOS_base.csv</a>
+          <a href="DB_CAMINOS.csv" class="btn btn-outline-primary btn-sm me-2" download>Ejemplo_DB_CAMINOS.csv</a>
         </div>
       </div>
 
@@ -324,7 +330,9 @@ function docAnexo2(meta, integrantes, uploadedLogoDataURL, baseFont){
     `En la localidad de ${meta.localidad||""}, municipio de ${MUNICIPIO}, del Estado de Yucatán, siendo las ${HORA||"____:____"} horas del día ${DIA} de mes ${MES} de ${ANIO}, se reunieron en el lugar que ocupa el domicilio comisaria ejidal, los productores agropecuarios, para la integración de un Grupo de Trabajo cuyo objetivo primordial es gestionar recursos económicos del Programa ${meta.programa||""}, bajo el siguiente:`,
     { text: "ORDEN DEL DÍA", bold:true, alignment:'center', margin:[0,6,0,4] },
     { ol: orden, margin:[14,0,0,8] },
-    `1. En relación con el primer punto del orden del día, se pasó la lista de asistencia a los socios que integrarán el grupo de trabajo, encontrándose ${meta.numSocios||""} de un total ${meta.numSocios||""} socios, cuyos nombres y firmas aparecen en la relación anexa. Sin embargo, es importante señalar que la integración de este grupo de: ${meta.grupo||""} que solicitaron un ${meta.apoyo||""}, con este apoyo economico los Productores Agropecuarios podrán ${meta.beneficio||""}. Por tal motivo, se constituye el presente grupo de trabajo, para los fines correspondientes.`,
+    `1. En relación con el primer punto del orden del día, se pasó la lista de asistencia a los socios que integrarán el grupo de trabajo, encontrándose ${meta.numSocios||""} de un total ${meta.numSocios||""} socios, cuyos nombres y firmas aparecen en la relación anexa. 
+    
+      Sin embargo, es importante señalar que la integración de este grupo de: ${meta.grupo||""} que solicitaron un ${meta.apoyo||""}, ${meta.problema||""}. Con este apoyo economico los Productores Agropecuarios podrán ${meta.beneficio||""}. Por tal motivo, se constituye el presente grupo de trabajo, para los fines correspondientes.`,
     `2. Como segundo punto del orden del día y verificando que están presentes los interesados, se declaró formalmente instalada la sesión.`,
     `3. Como tercer punto, los productores integrantes del grupo de trabajo explicaron cuáles son las características del grupo de trabajo, cuáles serán sus objetivos y metas, así como sus derechos y obligaciones y que básicamente sus acciones estarán destinadas a lograr el mejor aprovechamiento de los recursos naturales y económicos para mejorar la producción y la productividad.`,
     `4. En el cuarto punto del orden del día, se señaló que la función primordial del grupo de trabajo es la de gestionar recursos económicos a través del Programa ${meta.programa||""},promover el incremento de vías de acceso carretero de los asociados y que es obligación de los integrantes respetar los acuerdos emanados del mismo y acatar las medidas y compromisos que se celebren.`,
