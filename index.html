@@ -94,7 +94,15 @@
     </div>
   </div>
 </div>
-
+<footer class="text-center py-3 small text-secondary">
+  <div>
+    Versión 1.0 &mdash; <span id="fechaFooter"></span> &mdash; &copy; Derechos reservados SEDER Yucatán
+  </div>
+</footer>
+<script>
+  document.getElementById('fechaFooter').textContent =
+    new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+</script>
 <script>
 /* ===== Logo embebido (SVG) – se usa si no subes imagen ===== */
 const DEFAULT_LOGO_SVG = `
@@ -272,7 +280,7 @@ function docAnexo2(meta, integrantes, uploadedLogoDataURL, baseFont){
     `En la localidad de ${meta.localidad||""}, municipio de ${MUNICIPIO}, del Estado de Yucatán, siendo las ${HORA||"____:____"} horas del día ${DIA} de mes ${MES} de ${ANIO}, se reunieron en el lugar que ocupa el domicilio comisaria ejidal, los productores agropecuarios, para la integración de un Grupo de Trabajo cuyo objetivo primordial es gestionar recursos económicos del Programa ${meta.programa||""}, bajo el siguiente:`,
     { text: "ORDEN DEL DÍA", bold:true, alignment:'center', margin:[0,6,0,4] },
     { ol: orden, margin:[14,0,0,8] },
-    `1. En relación con el primer punto del orden del día, se pasó la lista de asistencia a los socios que integrarán el grupo de trabajo, encontrándose ${meta.numSocios||""} de un total ${meta.numBen||""} socios, cuyos nombres y firmas aparecen en la relación anexa. Sin embargo, es importante señalar que la integración de este grupo de: ${meta.grupo||""} que solicitaron un ${meta.apoyo||""}, con este apoyo economico los Productores Agropecuarios podrán ${meta.beneficio||""}.`,
+    `1. En relación con el primer punto del orden del día, se pasó la lista de asistencia a los socios que integrarán el grupo de trabajo, encontrándose ${meta.numSocios||""} de un total ${meta.numSocios||""} socios, cuyos nombres y firmas aparecen en la relación anexa. Sin embargo, es importante señalar que la integración de este grupo de: ${meta.grupo||""} que solicitaron un ${meta.apoyo||""}, con este apoyo economico los Productores Agropecuarios podrán ${meta.beneficio||""}. Por tal motivo, se constituye el presente grupo de trabajo, para los fines correspondientes.`,
     `2. Como segundo punto del orden del día y verificando que están presentes los interesados, se declaró formalmente instalada la sesión.`,
     `3. Como tercer punto, los productores integrantes del grupo de trabajo explicaron cuáles son las características del grupo de trabajo, cuáles serán sus objetivos y metas, así como sus derechos y obligaciones y que básicamente sus acciones estarán destinadas a lograr el mejor aprovechamiento de los recursos naturales y económicos para mejorar la producción y la productividad.`,
     `4. En el cuarto punto del orden del día, se señaló que la función primordial del grupo de trabajo es la de gestionar recursos económicos a través del Programa ${meta.programa||""},promover el incremento de vías de acceso carretero de los asociados y que es obligación de los integrantes respetar los acuerdos emanados del mismo y acatar las medidas y compromisos que se celebren.`,
@@ -280,7 +288,9 @@ function docAnexo2(meta, integrantes, uploadedLogoDataURL, baseFont){
     `6. Como sexto punto, una vez leídos todos los puntos anteriores, la asamblea propuso a los representantes del grupo de trabajo denominado: ${meta.grupo||""}, cuyos nombres aparecen en la relación anexa, designando como representantes e integrantes del grupo de trabajo a los siguientes productores, cuyos documentos de identificación oficial se anexan a la presente acta constitutiva.`
   ];
 
-  const clausura = `7.- Como último punto del Orden del Día y no habiendo otro asunto que tratar, se dio por clausurada la presente sesión, siendo las ${HFIN||"____:____"} horas del día antes señalado, levantándose la presente acta para los efectos que correspondan. Firmando la presente acta todos los que en ella intervinieron para dejar la debida constancia, de acuerdo con la relación anexa.`;
+  const clausura = `Quedando como Representante del grupo denominado: "${meta.grupo||""}", el/la: ${meta.representante||""}, para que en nuestro nombre y representacion gestione, tramite y reciba apoyos del programa ${meta.programa||""}.
+
+  7.- Como último punto del Orden del Día y no habiendo otro asunto que tratar, se dio por clausurada la presente sesión, siendo las ${HFIN||"____:____"} horas del día antes señalado, levantándose la presente acta para los efectos que correspondan. Firmando la presente acta todos los que en ella intervinieron para dejar la debida constancia, de acuerdo con la relación anexa.`;
 
   const leyenda = `Este programa es gratuito y de carácter público, no es patrocinado ni promovido por partido político alguno y sus recursos  provienen de los impuestos que pagan todos los contribuyentes. Está prohibido el uso de este programa con fines políticos,  electorales, de lucro y otros distintos a los establecidos. Quien haga uso indebido de los recursos de este programa será  denunciado y sancionado de acuerdo con la ley aplicable y ante la autoridad competente.  
     
