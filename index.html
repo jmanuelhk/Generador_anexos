@@ -15,80 +15,118 @@
 <script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/vfs_fonts.js"></script>
 
 <style>
-  .app-card{ max-width:1100px; margin:auto }
+  :root {
+    --guinda: #7A0026;
+    --guinda-dark: #5a001c;
+    --guinda-light: #b06f00;
+    --header-bg: linear-gradient(90deg, #f8e7c7 0%, #fbe7f1 100%);
+    --step-bg: #fff7fa;
+    --border-guinda: #7A0026;
+  }
+  .app-card{ max-width:900px; margin:auto }
   .logo-preview{ max-height:60px }
+  .step-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--guinda); }
+  .step-desc { color: #222; margin-bottom: 1rem; }
+  .form-text { color: #666; font-size: 0.98em; }
+  .card-step { background: var(--step-bg); border-radius: 0.5rem; padding: 1.2rem; margin-bottom: 1.5rem; border: 1px solid #e3e3e3; }
+  .card-step.active { border-color: var(--border-guinda); box-shadow: 0 0 0 2px #7A002622; }
+  .form-check-label { font-weight: 500; color: var(--guinda); }
+  .bg-header { background: #fff; border-bottom: 2px solid #f8e7c7; }
+  body { background: #fff !important; color: #222 !important; }
+  h1, .display-6, .fw-bold { color: var(--guinda) !important; }
+  .btn-primary {
+    background-color: var(--guinda);
+    border-color: var(--guinda-dark);
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px #7A002620;
+  }
+  .btn-primary:hover, .btn-primary:focus {
+    background-color: var(--guinda-dark);
+    border-color: var(--guinda-dark);
+    color: #fff;
+  }
+  .border-secondary-subtle { border-color: var(--guinda-light) !important; }
+  .text-primary { color: var(--guinda) !important; }
+  .alert-danger { background: #fff0f3; color: var(--guinda); border-color: var(--guinda); }
+  .form-check-input:checked { background-color: var(--guinda); border-color: var(--guinda-dark); }
+  .form-check-input:focus { box-shadow: 0 0 0 0.2rem #7A002633; }
+  footer { background: #f8e7c7; color: var(--guinda-dark); }
 </style>
 </head>
-<body class="bg-body text-body">
+<body>
 
 <div class="container py-4">
-  <h1 class="display-6 fw-bold mb-4">Generar Anexos 2 y 3 para Caminos Renacimiento</h1>
+  <div class="bg-header rounded-3 px-4 py-3 mb-4">
+    <h1 class="display-6 fw-bold mb-2 text-primary">Generador de Anexos 2 y 3</h1>
+    <div class="lead text-secondary">Para Caminos Renacimiento &mdash; <span style="color:var(--guinda);font-weight:bold;">SEDER Yucatán</span></div>
+  </div>
 
   <div class="card app-card shadow-sm border-secondary-subtle">
     <div class="card-body">
       <div id="alertBox" class="alert alert-danger d-none" role="alert"></div>
 
-      <div class="row g-4 align-items-end">
-        <div class="col-12 col-lg-6">
-          <label class="form-label fw-semibold">Archivo EXCEL de “Datos” (CSV)</label>
-          <input id="csvFile" type="file" accept=".csv" class="form-control" />
-          <div class="form-text">*Es necesario cargar el archivo CSV</div>
-          <!-- <div class="form-text">
-            Encabezados: <code>NOMBRE GURPO TRABAJO</code>, <code>LOCALIDAD</code>, <code>Fecha (AAAA-MM-DD)</code>, <code>Programa</code>,
-            <code>solucion de problematica</code>, <code>beneficio</code>, <code>Representante</code>, <code>Hora</code>, <code>SOCIOS</code>, <code>TOTAL BENEFICIARIOS</code>,
-            <code>NombreIntegrante</code>, <code>CargoIntegrante</code>, <code>MunicipioIntegrante</code>, <code>Sexo</code>.
-          </div> -->
+      <!-- Paso 1: Subir CSV -->
+      <div class="card-step active">
+        <div class="step-title">1. Sube tu archivo de datos (.CSV)</div>
+        <div class="step-desc">Descarga tu archivo Excel como CSV y súbelo aquí. <br>
+          <span class="text-dark small">El archivo debe tener los encabezados requeridos. Si tienes dudas, revisa el ejemplo o consulta con soporte.</span>
         </div>
+        <input id="csvFile" type="file" accept=".csv" class="form-control mb-2" />
+        <div class="form-text">*Es necesario cargar el archivo CSV. <a href="#" class="text-decoration-underline">¿Cómo obtenerlo?</a></div>
+      </div>
 
-        <div class="col-12 col-lg-6">
-          <label class="form-label fw-semibold">Logo/Encabezado (opcional)</label>
-          <div class="d-flex align-items-center gap-3">
-            <input id="imgHeader" type="file" accept="image/*" class="form-control"/>
-            <img id="logoPreview" class="logo-preview d-none rounded border border-secondary-subtle" alt="preview">
-          </div>
-          <div class="form-text">Si no cargas imagen, se usa el logo de SEDER por defecto.</div>
+      <!-- Paso 2: Logo -->
+      <div class="card-step">
+        <div class="step-title">2. Logo/Encabezado (opcional)</div>
+        <div class="step-desc">Puedes personalizar el encabezado del PDF con tu logo. Si no cargas imagen, se usará el logo oficial de SEDER.</div>
+        <div class="d-flex align-items-center gap-3">
+          <input id="imgHeader" type="file" accept="image/*" class="form-control"/>
+          <img id="logoPreview" class="logo-preview d-none rounded border border-secondary-subtle" alt="preview">
         </div>
       </div>
 
-      <hr class="my-4">
-
-      <div class="row g-4">
-        <div class="col-12 col-lg-4">
-          <div class="fw-semibold mb-2">Anexos a generar</div>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="chkA2" checked>
-            <label class="form-check-label" for="chkA2">Anexo 2</label>
+      <!-- Paso 3: Opciones de anexos -->
+      <div class="card-step">
+        <div class="step-title">3. Selecciona los anexos a generar</div>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <div class="fw-semibold mb-2" style="color:var(--guinda);">¿Qué anexos necesitas?</div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="chkA2" checked>
+              <label class="form-check-label" for="chkA2">Anexo 2 &mdash; Acta Constitutiva del Grupo de Trabajo</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="chkA3" checked>
+              <label class="form-check-label" for="chkA3">Anexo 3 &mdash; Escrito de Conformidad</label>
+            </div>
           </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="chkA3" checked>
-            <label class="form-check-label" for="chkA3">Anexo 3</label>
+          <div class="col-12 col-md-6">
+            <div class="fw-semibold mb-2" style="color:var(--guinda);">¿Cómo quieres tu PDF?</div>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="radio" name="modo" id="rbPerGroup" value="perGroup" checked>
+              <label class="form-check-label" for="rbPerGroup">Un PDF por grupo</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="modo" id="rbSingle" value="single">
+              <label class="form-check-label" for="rbSingle">Un solo PDF con todos los grupos</label>
+            </div>
           </div>
-        </div>
-
-        <div class="col-12 col-lg-4">
-          <div class="fw-semibold mb-2">Salida del PDF</div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="modo" id="rbPerGroup" value="perGroup" checked>
-            <label class="form-check-label" for="rbPerGroup">Un PDF por grupo</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="modo" id="rbSingle" value="single">
-            <label class="form-check-label" for="rbSingle">Un solo PDF con todo</label>
-          </div>
-        </div>
-
-        <div class="col-12 col-lg-4">
-          <!-- <label class="form-label fw-semibold">Tamaño de letra</label> -->
-          <input id="tamLetra" type="number" min="9" max="14" step="1" value="12" class="form-control" hidden/>
         </div>
       </div>
 
-      <div class="d-flex align-items-center gap-3 mt-4">
-        <button id="btnPDF" class="btn btn-primary btn-lg">
-          <span class="me-2">Generar Anexos en PDF</span>
-        </button>
-        <div id="spinner" class="spinner-border text-primary d-none" role="status">
-          <span class="visually-hidden">Generando…</span>
+      <!-- Paso 4: Generar PDF -->
+      <div class="card-step">
+        <div class="step-title">4. Genera tus anexos en PDF</div>
+        <div class="step-desc">Haz clic en el botón para procesar tus datos y descargar los anexos listos para imprimir.</div>
+        <div class="d-flex align-items-center gap-3 mt-2">
+          <button id="btnPDF" class="btn btn-primary btn-lg px-4">
+            <span class="me-2">Generar PDF</span>
+          </button>
+          <div id="spinner" class="spinner-border text-primary d-none" role="status">
+            <span class="visually-hidden">Generando…</span>
+          </div>
         </div>
       </div>
     </div>
@@ -96,7 +134,7 @@
 </div>
 <footer class="text-center py-3 small text-secondary">
   <div>
-    Versión 1.0 &mdash; <span id="fechaFooter"></span> &mdash; &copy; Derechos reservados SEDER Yucatán
+    Versión 1.1 &mdash; <span id="fechaFooter"></span> &mdash; &copy; Derechos reservados <span style="color:var(--guinda);font-weight:bold;">SEDER Yucatán</span>
   </div>
 </footer>
 <script>
