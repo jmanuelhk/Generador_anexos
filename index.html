@@ -11,8 +11,8 @@
 
 <!-- Librerías para CSV y PDF -->
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/pdfmake.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/vfs_fonts.js"></script>
+<script src="libs/pdfmake.js"></script>
+<script src="libs/vfs_fonts.js"></script>
 
 <style>
   :root {
@@ -74,7 +74,12 @@
           <span class="text-dark small">El archivo debe tener los encabezados requeridos. Si tienes dudas, revisa el ejemplo o consulta con soporte.</span>
         </div>
         <input id="csvFile" type="file" accept=".csv" class="form-control mb-2" />
-        <div class="form-text">*Es necesario cargar el archivo CSV. <a href="#" class="text-decoration-underline">¿Cómo obtenerlo?</a></div>
+        <div class="form-text">
+          *Es necesario cargar el archivo CSV.
+          <a href="https://www.youtube.com/watch?v=QJp4pQh6K7g" target="_blank" rel="noopener" class="text-decoration-underline">
+            ¿Cómo obtenerlo?
+          </a>
+        </div>
       </div>
 
       <!-- Paso 2: Logo -->
@@ -339,7 +344,7 @@ function docAnexo2(meta, integrantes, uploadedLogoDataURL, baseFont){
   return {
     pageSize: 'LETTER',
     pageMargins: [36, 84, 36, 54],
-    defaultStyle: { fontSize: baseFont, lineHeight: 1.15 },
+    defaultStyle: { font: 'Roboto', fontSize: baseFont, lineHeight: 1.15 },
     header, footer,
     content: [
       { text: "ANEXO 2. Formato para la Integración del Grupo de Trabajo", alignment:'center', bold:true, margin:[0,0,0,4] },
@@ -396,7 +401,7 @@ function docAnexo3(meta, integrantes, uploadedLogoDataURL, baseFont){
   return {
     pageSize: 'LETTER',
     pageMargins: [36, 84, 36, 54],
-    defaultStyle: { fontSize: baseFont, lineHeight: 1.15 },
+    defaultStyle: { font: 'Roboto', fontSize: baseFont, lineHeight: 1.15 },
     header, footer,
     content: [
       { text: "Anexo 3. Escrito de Conformidad entre Integrantes del Grupo de Trabajo", alignment:'center', bold:true, margin:[0,0,0,8] },
