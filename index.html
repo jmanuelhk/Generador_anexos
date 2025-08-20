@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-bs-theme="dark">
+<html lang="es" data-bs-theme="light"></html>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,6 +16,7 @@
 
 <style>
   :root {
+    --primary: #7A0026;
     --guinda: #7A0026;
     --guinda-dark: #5a001c;
     --guinda-light: #b06f00;
@@ -47,6 +48,18 @@
     border-color: var(--guinda-dark);
     color: #fff;
   }
+  .btn-outline-primary {
+    border-color: var(--guinda-dark);
+    color: var(--guinda-dark);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px #7A002620;
+  }
+  .btn-outline-primary:hover {
+    background-color: var(--guinda-dark);
+    border-color: var(--guinda-dark);
+    color: #fff;
+  }
   .border-secondary-subtle { border-color: var(--guinda-light) !important; }
   .text-primary { color: var(--guinda) !important; }
   .alert-danger { background: #fff0f3; color: var(--guinda); border-color: var(--guinda); }
@@ -72,14 +85,11 @@
         <div class="step-title">1. Sube tu archivo de datos (.CSV)</div>
         <div class="step-desc">
           Descarga tu archivo Excel como CSV y súbelo aquí. <br>
-          <span class="text-bg-danger small">El archivo debe tener los encabezados requeridos. <b>IMPORTANTE:</b> Guarda tu archivo como <b>CSV UTF-8</b> para que los acentos y caracteres especiales se vean correctamente en el PDF. Si tienes dudas, revisa el ejemplo o consulta con soporte.</span>
+          <span class="text-muted small">El archivo debe tener los encabezados requeridos. <b>IMPORTANTE:</b> Guarda tu archivo como <b>CSV UTF-8</b> para que los acentos y caracteres especiales se vean correctamente en el PDF. Si tienes dudas, revisa el ejemplo o consulta con soporte.</span>
         </div>
         <input id="csvFile" type="file" accept=".csv" class="form-control mb-2" />
         <div class="form-text">
           *Es necesario cargar el archivo CSV.
-          <a href="https://www.youtube.com/watch?v=QJp4pQh6K7g" target="_blank" rel="noopener" class="text-decoration-underline">
-        ¿Cómo obtenerlo?
-          </a>
         </div>
         <div class="mt-3">
           <div class="fw-semibold mb-1" style="color:var(--guinda);">Ejemplos de archivos CSV, solo baja y modifica:</div>
@@ -212,7 +222,13 @@ function parseDateAny(v){
   }
   const dt=new Date(s); return isNaN(dt.getTime())?null:dt;
 }
-function mesEspUpper(d){return ["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"][d.getMonth()];}
+function mesEspUpper(d){
+  const meses = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+  return meses[d.getMonth()];
+}
 function hhmm(v){
   if(v==null||v==="") return "";
   let s=String(v).trim();
@@ -271,23 +287,23 @@ function headerFooterFactory(uploadedLogoDataURL, baseFont){
 function tablaIntegrantes(integrantes, firmaWidth=220){
   return {
     headerRows: 1,
-    widths: [25, '*', 110, 110, 40, firmaWidth],
+    widths: [25, '*', '*', 120, 40, firmaWidth],
     table: {
       dontBreakRows: true,
       body: [
         [
           {text:"No.", bold:true, alignment:'center'},
           {text:"Nombre del integrante", bold:true},
-          {text:"Municipio", bold:true},
           {text:"Cargo", bold:true},
+          {text:"Municipio", bold:true},
           {text:"Sexo", bold:true, alignment:'center'},
-          {text:"Firma / Huella", bold:true, alignment:'center'}
+          {text:"   Firma  /  Huella.  ", bold:true, alignment:'center'}
         ],
         ...integrantes.map((it, i)=>[
           {text:String(i+1), alignment:'center'},
           {text:it.nombre||""},
-          {text:it.municipio||""},
           {text:it.cargo||""},
+          {text:it.municipio||""},
           {text:it.sexo||"", alignment:'center'},
           {text:""}
         ])
